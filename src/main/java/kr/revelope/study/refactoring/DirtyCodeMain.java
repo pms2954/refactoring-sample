@@ -1,6 +1,5 @@
 package kr.revelope.study.refactoring;
 
-import kr.revelope.study.refactoring.common.FileUtils;
 import kr.revelope.study.refactoring.model.Crime;
 
 import java.io.IOException;
@@ -15,22 +14,16 @@ import java.io.IOException;
 public class DirtyCodeMain {
 
 	public static void main(String[] args) throws IOException {
-
-		//아규먼트 처리
 		if (args == null || args.length < 2) {
 			throw new IllegalArgumentException("File name and target column name is required.");
 		}
+
 		String filePath = args[0];
 		String targetText = args[1];
 
-		//update : header, contents , targetText
-		Crime crimeMap = new Crime();
-		crimeMap.updateHeader(FileUtils.readHeader(filePath));
-		crimeMap.updateContents(FileUtils.readMain(filePath));
-		crimeMap.updateTargetHeader(targetText);
+		Crime crimeInfo = new Crime();
+		crimeInfo.registerCrime(filePath);
 
-		//counting targetText
-		crimeMap.counting();
-
+		crimeInfo.counting(targetText);
 	}
 }
